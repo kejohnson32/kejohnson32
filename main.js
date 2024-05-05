@@ -37,9 +37,9 @@ animate()
 let loader = new THREE.CubeTextureLoader()
 // all texture images for background in this exercise from here: https://github.com/mrdoob/three.js/tree/dev/examples/textures/cube/Bridge2
 let background = loader.load([
-  "../images/posx.jpg", "../images/negx.jpg", 
-  "../images/posy.jpg", "../images/negy.jpg", 
-  "../images/posz.jpg", "../images/negz.jpg"
+  "./images/posx.jpg", "./images/negx.jpg", 
+  "./images/posy.jpg", "./images/negy.jpg",
+  "./images/posz.jpg", "./images/negz.jpg"
 ])
 scene.background = background
 
