@@ -7,41 +7,33 @@ const camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.inner
 const renderer = new THREE.WebGLRenderer(); 
 renderer.setSize(window.innerWidth, window.innerHeight); 
 document.body.appendChild(renderer.domElement); 
-const geometry = new THREE.BoxGeometry(10, 10, 10); 
-const material = new THREE.MeshBasicMaterial({ color: "rgb(255, 255, 255, 0.05)" }); 
-const cube = new THREE.Mesh(geometry, material); 
-scene.add(cube); camera.position.z = 5; 
+
+let img_path = "./images/windsor/Yahara_Windsor___2019-03-12_19-00-01-2859-05-00.jpg"
+
+let textureLoader = new THREE.TextureLoader()
+let t  = textureLoader.load(img_path)
+
+let cube_materials = Array(5).fill(new THREE.MeshBasicMaterial({color: "white", side:THREE.BackSide}))
+cube_materials.push(new THREE.MeshBasicMaterial({map:t, side:THREE.BackSide}))
+let cube_geom = new THREE.BoxGeometry(1280, 720, 1000)
+let background = new THREE.Mesh(cube_geom, cube_materials)
+scene.add(background)
+
 
 renderer.setSize( window.innerWidth, window.innerHeight/2 );
 document.body.appendChild( renderer.domElement );
 
-
 const controls = new OrbitControls( camera, renderer.domElement );
 
 //controls.update() must be called after any manual changes to the camera's transform
-camera.position.set( 0, 20, 100 );
+camera.position.set( 0, 0, 500 );
 controls.update();
 
 function animate() {
-
 	requestAnimationFrame( animate );
-
 	// required if controls.enableDamping or controls.autoRotate are set to true
+
 	controls.update();
-
 	renderer.render( scene, camera );
-
 }
 animate()
-
-let loader = new THREE.CubeTextureLoader()
-// all texture images for background in this exercise from here: https://github.com/mrdoob/three.js/tree/dev/examples/textures/cube/Bridge2
-let background = loader.load([
-  "./images/posx.jpg", "./images/negx.jpg", 
-  "./images/posy.jpg", "./images/negy.jpg",
-  "./images/posz.jpg", "./images/negz.jpg"
-])
-scene.background = background
-
-console.log("test")
-
