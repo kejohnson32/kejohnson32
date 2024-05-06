@@ -1,3 +1,15 @@
+export const findClosest = (val, arr) => {
+    return arr.reduce((a, b) => {
+        let aDiff = Math.abs(a - val)
+        let bDiff = Math.abs(b - val)
+        if(aDiff == bDiff){
+            return a > b ? a : b
+        } else {
+            return bDiff < aDiff ? b : a
+        }
+    })
+}
+
 export const imageNames = [
     'Yahara_Windsor___2019-03-12_19-00-01-2859-05-00.jpg',
     'Yahara_Windsor___2019-03-13_07-00-05-0893-05-00.jpg',
