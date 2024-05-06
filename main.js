@@ -14,24 +14,32 @@ const controls = new OrbitControls(camera, renderer.domElement);
 camera.position.set(0, 0, 500);
 controls.update();
 
-// adding the large cube 
-let img_path = `./images/windsor/${imageNames[4]}`
 let textureLoader = new THREE.TextureLoader()
-let t = textureLoader.load(img_path)
-t.wrapS = THREE.RepeatWrapping;
-t.repeat.x = - 1;
 let cube_materials = Array(5).fill(new THREE.MeshBasicMaterial({ color: "lightGrey", side: THREE.BackSide }))
-cube_materials.push(new THREE.MeshBasicMaterial({ map: t, side: THREE.BackSide }))
 let cube_geom = new THREE.BoxGeometry(1280, 720, 1000)
-let background = new THREE.Mesh(cube_geom, cube_materials)
-scene.add(background)
+let cubes = imageNames.map(im => {
+    console.log('im :>> ', im);
+    let t = textureLoader.load(`./images/windsor/${im}`)
+    t.wrapS = THREE.RepeatWrapping;
+    t.repeat.x = - 1;
+    let material = new THREE.MeshBasicMaterial({ map: t, side: THREE.BackSide })
+    return new THREE.Mesh(cube_geom, [...cube_materials, material])
+})
+
+scene.add(cubes[0])
+
+let time = 0
+let lastIndex = 0
 
 function animate() {
     requestAnimationFrame(animate);
-
+    time++
+    let index = Math.floor(time / 50 % 100)
+    if (index != lastIndex) {
+        lastIndex++
+        scene.add(cubes[index])
+    }
     controls.update();
     renderer.render(scene, camera);
 }
 animate()
-
-console.log('data :>> ', data);
