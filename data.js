@@ -1,3 +1,4 @@
+// object holding the response from the nwis api call
 export const data = {
     "name": "ns1:timeSeriesResponseType",
     "declaredType": "org.cuahsi.waterml.TimeSeriesResponseType",
